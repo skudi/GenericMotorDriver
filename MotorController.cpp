@@ -2,6 +2,11 @@
 #include "MotorController.h"
 
 MotorController::MotorController(unsigned int forwardsPin, unsigned int backwardsPin, bool pin1IsDirection){
+	Serial.print("MotorController.new forwardsPin:");
+	Serial.print(forwardsPin);
+	Serial.print(", backwardsPin:");
+	Serial.print(backwardsPin);
+	Serial.print("\n");
   this->forwardPin = forwardsPin;
   this->backwardPin = backwardsPin;
   pinMode(forwardPin, OUTPUT);
@@ -36,9 +41,10 @@ double MotorController::get(){
   return setValue;
 }
 
-void MotorController::set(double powerPercent){
+void MotorController::set(double powerPercent) {
   if (powerPercent > 1) powerPercent = 1;
   else if (powerPercent < -1) powerPercent = -1;
+	MotorControllerInterface::set(powerPercent);
   
   if (timeAtLastSet != 0 || !enabledRampRate){
     double adjustedRamp = rampRate * (millis()-timeAtLastSet)/1000.0;

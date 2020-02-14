@@ -1,10 +1,7 @@
 #pragma once
+#include "MotorControllerInterface.h"
 
-#ifndef PWMRANGE
-#define PWMRANGE 255
-#endif
-
-class MotorController{
+class MotorController : public MotorControllerInterface {
   public:
     /**
      * \param pin1 First pint
@@ -17,8 +14,8 @@ class MotorController{
     /**
      * \param powerPercent Number between -1 and 1 representing power to send to the motor (negative values cause motor to reverse)
      */
-    void set(double powerPercent);
-    double get();
+    virtual void set(double powerPercent);
+    virtual double get();
     void setRampRate(double rampRatePerSec);
     void enableRampRate();
     void disableRampRate();
